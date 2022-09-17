@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Str;
 
 class ProductApiController extends Controller
 {
@@ -21,5 +22,18 @@ class ProductApiController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+    public function uploadImage(Request $request)
+    {
+        if ($request->image) {
+            $file = $request->image;
+            $filename = date('YmdHi') . '-' . Str::uuid() . '.' . $request->image->extension();
+            $file->move(public_path('product'), $filename);
+        }
+
+        $path = '/product/' . $filename;
+        
+        return $path;
     }
 }

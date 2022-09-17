@@ -21,7 +21,7 @@ $(document).ready( function () {
                 "targets": 1,
                 "name": null,
                 "render": function (data, type, row) {
-                    return '<img src="' + row.detail.image + '" class="img w-25 h-25 border rounded">'
+                    return '<img src="' + row.detail.image + '" class="img border rounded" style="width: 50px; height: 50px; object-fit: cover;">'
                 }
             },
             {
