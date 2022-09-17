@@ -5,6 +5,9 @@ $(document).ready( function () {
         "ajax": {
             'url': urlDT,
             'type': 'GET',
+            'beforeSend': function (request) {
+                request.setRequestHeader("Authorization", 'Bearer ' + token);
+            },
             'dataSrc': function (response) {
                 return response.data;
             }
@@ -42,7 +45,7 @@ $(document).ready( function () {
                 "targets": 4,
                 "name": null,
                 "render": function (data, type, row) {
-                    return row.detail.price
+                    return 'Rp. ' + row.detail.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                 }
             },
             {
@@ -63,7 +66,8 @@ $(document).ready( function () {
         if (confirm('Apakah anda yakin ingin menghapus kategori ini?')) {
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Authorization': 'Bearer ' + token
                 }
             });
             $.ajax({

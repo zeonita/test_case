@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class CategoryApiController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function list(Request $request)
     {
         $categories = Category::limit($request->length)->offset($request->start)->get();

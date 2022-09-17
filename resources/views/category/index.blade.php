@@ -36,6 +36,7 @@
 @push('scripts')
     <script>
         var urlDT = "{{ route('api.category-list') }}";
+        var token = "{{ session('jwt-token.access_token') }}";
     </script>
     <script src="{{ asset('js/category/category.js') }}" defer></script>
 @endpush

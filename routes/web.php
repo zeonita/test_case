@@ -41,12 +41,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('edit/{category}', [CategoryController::class, 'update'])->name('update');
         Route::delete('{category}', [CategoryController::class, 'destroy'])->name('destroy');
     });
-
-    Route::prefix('api')->name('api.')->group(function () {
-        Route::get('category', [CategoryApiController::class, 'list'])->name('category-list');
-        Route::get('product', [ProductApiController::class, 'list'])->name('product-list');
-        Route::post('upload-image', [ProductApiController::class, 'uploadImage'])->name('upload-image');
-    });
 });
 
 Auth::routes();
