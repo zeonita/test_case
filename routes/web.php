@@ -19,3 +19,8 @@ use App\Http\Controllers\CategoryController;
 
 Route::redirect('/', 'home');
 Route::get('home', [HomeController::class, 'index'])->name('index');
+
+Route::prefix('produk')->name('product.')->group(function () {
+    Route::get('', [ProductController::class, 'index'])->name('index');
+    Route::get('tambah', [ProductController::class, 'add'])->name('add');
+});
