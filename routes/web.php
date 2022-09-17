@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::redirect('/', 'home');
+Route::get('home', [HomeController::class, 'index'])->name('index');
+
+Route::prefix('produk')->name('product.')->group(function () {
+    Route::get('', [ProductController::class, 'index'])->name('index');
+    Route::get('tambah', [ProductController::class, 'add'])->name('add');
+});
+
+Route::prefix('kategori')->name('category.')->group(function () {
+    Route::get('', [CategoryController::class, 'index'])->name('index');
+    Route::get('tambah', [CategoryController::class, 'add'])->name('add');
 });
