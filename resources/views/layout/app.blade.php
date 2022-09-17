@@ -13,6 +13,8 @@
         <!-- Bootstrap CSS -->
         <link href="{{asset('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
         
+        <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+        
         @stack('styles')
     </head>
     <body>
