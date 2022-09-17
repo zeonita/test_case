@@ -32,7 +32,7 @@
                 <div class="col-md-3 bg-secondary">
                     @include('layout.menu-dashboard')
                 </div>
-                <div class="col-md-9 p-5">
+                <div class="col-md-9 p-5 mb-5">
                     @yield('content')
                 </div>
             </div>

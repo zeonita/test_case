@@ -1,7 +1,6 @@
 @extends('layout.dashboard')
  
 @section('content')
-
     <div class="d-flex justify-content-between mb-4">
         <h1>Produk</h1>
         <div class="my-2">
@@ -30,6 +29,7 @@
 @push('scripts')
     <script>
         var urlDT = "{{ route('api.product-list') }}";
+        var token = "{{ session('jwt-token.access_token') }}";
     </script>
     <script src="{{ asset('js/product/product.js') }}" defer></script>
 @endpush
