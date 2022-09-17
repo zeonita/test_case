@@ -3,12 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Category;
-use App\Http\Requests\StoreCategoryRequest;
-use Illuminate\Http\Request;
 
 class CategoryRepository
 {
-    public function save(StoreCategoryRequest $request, Category $category = null)
+    public function save($request, Category $category = null)
     {
         if (! $category) {
             $category = new Category();

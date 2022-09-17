@@ -2,16 +2,17 @@
  
 @section('content')
 
-    <h1>Tambah Produk</h1>
+    <h1>Edit Produk</h1>
     <div class="mt-4 p-4 border border-light rounded">
-        <form class="row g-3" method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
+        <form class="row g-3" method="POST" action="{{ route('product.update', ['product' => $product]) }}" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="col-md-12">
                 <label class="form-label">Kategori Produk</label>
                 <select class="form-select" id="select-category" aria-label="Default select example" name="category">
                     <option selected>Pilih Kategori</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        <option value="{{ $category->id }}" {{ $category->id === $product->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
                     @endforeach
                 </select>
                 @error('category')
@@ -19,8 +20,12 @@
                 @enderror
             </div>
             <div class="col-md-12">
+                <label class="form-label">SKU Produk</label>
+                <input type="text" class="form-control" value="{{ $product->sku }}" disabled>
+            </div>
+            <div class="col-md-12">
                 <label class="form-label">Nama Produk</label>
-                <input type="text" class="form-control" value="" required name="name">
+                <input type="text" class="form-control" value="{{ $product->name }}" required name="name">
                 @error('name')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
@@ -34,9 +39,9 @@
                     </div>
                 </div>
                 <div>
-                    <img id="image-preview" class="w-25 h-25">
+                    <img id="image-preview" class="w-25 h-25 mt-3" src="{{ asset($product->detail->image) }}">
                 </div>
-                <input type="hidden" class="form-control" value="" required name="image_url" id="image_url">
+                <input type="hidden" class="form-control" value="{{ $product->detail->image }}" required name="image_url" id="image_url">
                 @error('image_url')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
@@ -45,7 +50,7 @@
                 <label class="form-label">Harga</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Rp.</span>
-                    <input type="number" class="form-control" placeholder="0" aria-label="Username" aria-describedby="basic-addon1" required name="price">
+                    <input type="text" class="form-control" placeholder="0" value="{{ $product->detail->price }}" aria-label="Harga" aria-describedby="basic-addon1" required name="price">
                     @error('price')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -53,7 +58,7 @@
             </div>
             <div class="col-md-12">
                 <label class="form-label">Deskripsi</label>
-                <textarea class="form-control" id="description-wysiwyg" value="" required name="description"></textarea>
+                <textarea class="form-control" id="description-wysiwyg" value="{{ $product->detail->description }}" required name="description"></textarea>
                 @error('description')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
@@ -100,6 +105,9 @@
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
+
+        var description_value = $('#description-wysiwyg').attr('value');
+        $('#description-wysiwyg').summernote('code', description_value);
 
         $('document').ready(function () {
             $("#image").on('change', function () {
