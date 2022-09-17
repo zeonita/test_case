@@ -1,6 +1,15 @@
 @extends('layout.dashboard')
  
 @section('content')
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ $message }}</strong>
+    </div>
+    @endif
+
+    <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="delete-alert">
+        <strong>Data kategori berhasil dihapus.</strong>
+    </div>
 
     <div class="d-flex justify-content-between mb-4">
         <h1>Kategori</h1>
@@ -18,16 +27,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Baju</td>
-                    <td><button class="btn btn-success">Edit</button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Tas</td>
-                    <td><button class="btn btn-success">Edit</button></td>
-                </tr>
             </tbody>
         </table>
     </div>
@@ -35,5 +34,8 @@
 @endsection
 
 @push('scripts')
+    <script>
+        var urlDT = "{{ route('api.category-list') }}";
+    </script>
     <script src="{{ asset('js/category/category.js') }}" defer></script>
 @endpush
